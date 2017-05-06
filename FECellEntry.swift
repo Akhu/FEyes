@@ -14,6 +14,7 @@ class FECellEntry: UITableViewCell {
     @IBOutlet weak var painLvlLabel: UILabel!
     @IBOutlet weak var flowLvlLabel: UILabel!
 
+    @IBOutlet weak var positionLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,10 +27,14 @@ class FECellEntry: UITableViewCell {
         dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = .medium
         
-        self.dateLabel.text = dateFormatter.string(from: entry.date as! Date)
+        self.dateLabel.text = dateFormatter.string(from: entry.date! as Date)
         
         self.flowLvlLabel.text = String(entry.flowLevel)
         self.painLvlLabel.text = String(entry.painLevel)
+        
+        if let altitude = entry.altitude, let position = entry.location {
+            self.positionLabel.text = "Altitude: \(altitude), Coordonnées: \(position)"
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -8,3 +8,16 @@
 
 import Foundation
 import CoreLocation
+
+struct FPosition {
+    var coordinates:CLLocationCoordinate2D
+    var altitude:CLLocationDistance
+    
+    func getAltitude() -> String {
+        return String(self.altitude)
+    }
+    
+    func getCoordinates() -> String{
+        return String(self.coordinates.latitude) + "+" + String(self.coordinates.longitude)
+    }
+}
