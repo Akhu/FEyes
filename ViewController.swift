@@ -11,7 +11,7 @@ import CoreData
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, WeatherDelegate {
     
     @IBOutlet weak var stepDescriptor: UILabel!
     
@@ -25,8 +25,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var mapViewContainer: UIView!
+    
+    @IBOutlet weak var labWeatherStatus: UILabel!
+    
+    var yahooWeather:YWeather = YWeather()
     var locationManager = CLLocationManager()
     var currentPosition:FPosition?
+    var currentWeather:YWeather.weatherData?
     
     
     override func viewDidLoad() {
@@ -42,8 +48,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
-        //Getting weather from Yahoo
+        mapViewContainer.configureDropShadow()
+        mapView.roundBorder(roundValue: 15)
         
+        self.yahooWeather.delegate = self
+        
+        //Getting weather from Yahoo
         
     }
     
@@ -54,12 +64,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         self.locationAuthorisationStatus()
     }
     
+    func weatherUpdated(weatherData: YWeather.weatherData) {
+        self.labWeatherStatus.text = weatherData.weatherDescription
+        self.labWeatherStatus.tintColor = UIColor.green
+        self.currentWeather = weatherData
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.first {
-            self.currentPosition = FPosition(coordinates: currentLocation.coordinate, altitude: currentLocation.altitude)
+            let lastPosition = FPosition(coordinates: currentLocation.coordinate, altitude: currentLocation.altitude)
+            self.currentPosition = lastPosition
+            self.yahooWeather.apiCall(forPosition: lastPosition)
         }
-        
-        print(manager.location)
     }
     
     
@@ -90,6 +106,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         if let currentLocation = self.currentPosition {
             entry.altitude = currentLocation.getAltitude()
             entry.location = currentLocation.getCoordinates()
+        }
+        
+        if let weather = self.currentWeather {
+            entry.weather = weather.description()
         }
         
         (UIApplication.shared.delegate as! AppDelegate).saveContext()

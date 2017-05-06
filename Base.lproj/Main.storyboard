@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Nouvelle Entrée-->
+        <!--Fanny Eyes-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Nouvelle Entrée" id="BYZ-38-t0r" customClass="ViewController" customModule="fannyEyes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Fanny Eyes" id="BYZ-38-t0r" customClass="ViewController" customModule="fannyEyes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -25,12 +25,18 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="ZKq-FM-I3G">
                                 <rect key="frame" x="16" y="76" width="343" height="516.5"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-34-ZIS">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeH-mv-d5x">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="125"/>
+                                        <subviews>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-34-ZIS">
+                                                <rect key="frame" x="0.0" y="1" width="343" height="125"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </mapView>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="125" id="unO-jI-tAS"/>
+                                            <constraint firstAttribute="height" constant="125" id="Veb-Kc-eSM"/>
                                         </constraints>
-                                    </mapView>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="KIJ-m2-NoI">
                                         <rect key="frame" x="0.0" y="160" width="343" height="92.5"/>
                                         <subviews>
@@ -159,13 +165,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="lYy-34-ZIS" secondAttribute="trailing" id="QAJ-Av-39E"/>
-                                    <constraint firstItem="lYy-34-ZIS" firstAttribute="leading" secondItem="ZKq-FM-I3G" secondAttribute="leading" id="SSM-6y-pkO"/>
-                                    <constraint firstItem="lYy-34-ZIS" firstAttribute="top" secondItem="ZKq-FM-I3G" secondAttribute="top" id="XQP-Uq-cWo"/>
-                                    <constraint firstItem="lYy-34-ZIS" firstAttribute="leading" secondItem="ZKq-FM-I3G" secondAttribute="leading" id="lFj-cd-Liy"/>
-                                    <constraint firstAttribute="trailing" secondItem="lYy-34-ZIS" secondAttribute="trailing" id="mKg-d3-aj6"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -175,7 +174,7 @@
                             <constraint firstItem="ZKq-FM-I3G" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="12" id="tjv-c5-6dh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Nouvelle Entrée" id="CrW-rE-ZuA">
+                    <navigationItem key="navigationItem" title="Fanny Eyes" id="CrW-rE-ZuA">
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="HjM-Pj-kpu">
                             <connections>
                                 <segue destination="3R6-AW-uXO" kind="show" id="lAW-lg-KIV"/>
@@ -185,7 +184,9 @@
                     <connections>
                         <outlet property="buttonSave" destination="rk2-cd-XTu" id="cwc-Ol-Q4w"/>
                         <outlet property="flowStepDescription" destination="CrR-SP-Zow" id="pzt-xZ-KM1"/>
+                        <outlet property="labWeatherStatus" destination="9db-jt-OXi" id="2Zi-40-ueN"/>
                         <outlet property="mapView" destination="lYy-34-ZIS" id="7pD-Or-Jsj"/>
+                        <outlet property="mapViewContainer" destination="BeH-mv-d5x" id="x4E-pn-qFX"/>
                         <outlet property="slider" destination="1DV-YV-VUw" id="k9Q-4l-9m9"/>
                         <outlet property="sliderFlowStep" destination="IPk-zU-ihd" id="lEC-Lf-gch"/>
                         <outlet property="stepDescriptor" destination="p0v-Kh-bKF" id="U2a-aH-iOw"/>
@@ -318,11 +319,16 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hla-V5-PbO" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EaW-wA-e8l">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="EaW-wA-e8l">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6qt-0h-ncD">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="fh7-W2-Wp4"/>
                     </connections>
@@ -332,4 +338,5 @@
             <point key="canvasLocation" x="140" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>
