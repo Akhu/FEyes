@@ -104,7 +104,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         entry.date = Date() as NSDate?
         
         if let currentLocation = self.currentPosition {
-            entry.altitude = currentLocation.getAltitude()
             entry.location = currentLocation.getCoordinates()
         }
         
