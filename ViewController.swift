@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import CoreLocation
 import MapKit
+import SwiftMessages
 
 class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, WeatherDelegate {
     
@@ -97,6 +98,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
 
     @IBAction func saveAction(_ sender: UIButton) {
+        
+        
         // Creating new FEntry and save it in context
         let entry = NSEntityDescription.insertNewObject(forEntityName: "FEntry", into: (UIApplication.shared.delegate as! AppDelegate).getContext()) as! FEntry
         entry.flowLevel = self.sliderFlowStep.value
@@ -112,6 +115,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
         
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        let view = MessageView.viewFromNib(layout: .TabView)
+        view.configureTheme(.success)
+        view.configureContent(title: "Cool !", body: "C'est enregistré ;)")
+        view.button?.setTitle("Ok", for: .normal)
+        SwiftMessages.show(view: view)
     }
     
     override func didReceiveMemoryWarning() {

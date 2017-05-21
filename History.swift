@@ -47,7 +47,32 @@ class History: UITableViewController, NSFetchedResultsControllerDelegate {
     }
 
     // MARK: - Table view data source
-
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            (UIApplication.shared.delegate as! AppDelegate).getContext().delete(self.fetchResultController.object(at: indexPath) as! NSManagedObject)
+            
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .delete:
+            guard let indexPathToDelete = indexPath else {
+                break
+            }
+            self.tableView.deleteRows(at: [indexPathToDelete], with: .automatic)
+            break
+        default:
+            break
+        }
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return fetchResultController.sections!.count

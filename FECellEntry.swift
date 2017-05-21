@@ -17,7 +17,6 @@ class FECellEntry: UITableViewCell {
     @IBOutlet weak var weatherLabel: UILabel!
 
     @IBOutlet weak var openInMapButton: UIButton!
-    @IBOutlet weak var positionLabel: UILabel!
     
     var entry:FEntry?
     
@@ -66,7 +65,6 @@ class FECellEntry: UITableViewCell {
         
         if let position = entry.location {
             self.openInMapButton.isEnabled = true
-            self.positionLabel.text = "Coordonnées: \(position)"
         }else{
             self.openInMapButton.isEnabled = false
         }
